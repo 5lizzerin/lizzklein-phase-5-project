@@ -3,7 +3,7 @@ import { Button, ChakraProvider, FormControl, FormHelperText, Heading, Input, In
 import { useFormik } from 'formik';
 import * as yup from "yup";
 
-function Signup(){
+function Signup({setUser}){
 
     const [show, setShow] = useState(false)
     const handleClick = () => setShow(!show)
@@ -21,7 +21,23 @@ function Signup(){
         },
         validationSchema: signupSchema,
         onSubmit: (values) => {
-            console.log(values)
+            console.log("i was clicked")
+            fetch("http://localhost:5555/api/v1/users", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/JSON"
+                },
+                body: JSON.stringify(values)
+            }).then((resp) => {
+                if (resp.ok){
+                    resp.json().then(({user}) => {
+                        setUser(user)
+                        //navigate into site
+                    })
+                } else {
+                    console.log("errors? handle them")
+                }
+            })
         }
     })
 
@@ -52,7 +68,7 @@ return (
           <FormHelperText>We'll never share your email</FormHelperText>
         </FormControl>
         <FormControl align="center">
-          {/* <InputGroup justifyContent="center" mx="auto"> */}
+          <InputGroup justifyContent="center" mx="auto">
             <Input
               variant="outline"
               placeholder="Password"
@@ -62,12 +78,12 @@ return (
               name="password"
               type={show ? 'text' : 'password'}
             />
-            {/* <InputRightElement width='4.5rem'>
+            <InputRightElement width='4.5rem'>
               <Button h='1.75rem' size='sm' onClick={handleClick}>
                 {show ? 'Hide' : 'Show'}
               </Button>
-            </InputRightElement> */}
-          {/* </InputGroup> */}
+            </InputRightElement>
+          </InputGroup>
         </FormControl>
         <Button type="submit" color="teal">
           Submit
