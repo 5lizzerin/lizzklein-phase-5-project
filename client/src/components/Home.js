@@ -10,11 +10,11 @@ function Home(){
     const navigate = useNavigate();
 
     function handleAllCombosButton(){
-    navigate('/allcombos')
+    navigate('/allcombinations')
     }
 
     function handleMyCombosButton(){
-    navigate('/mycombos')
+    navigate('/mycombinations')
     }
 
 
