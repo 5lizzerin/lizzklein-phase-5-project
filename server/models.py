@@ -31,3 +31,36 @@ class User(db.Model, SerializerMixin):
         return bcrypt.check_password_hash(self.password_hash, byte_object)
 
 
+class Move(db.Model, SerializerMixin):
+    __tablename__ = "moves"
+
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String)
+    description = db.Column(db.String)
+    image = db.Column(db.String)
+    combination_moves = db.Relationship("Combination_move", back_populates = "move")
+
+
+
+class Combination(db.Model, SerializerMixin):
+    __tablename__ = "combinations"
+
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String)
+    image = db.Column(db.String)
+
+    combination_moves = db.relationship("Combination_move", order_by="Combination_move.sequence_number", back_populates = "combination")
+
+
+
+class Combination_move(db.Model, SerializerMixin):
+    __tablename__ = "combination_moves"
+    serialize_rules = ("-combination.combination_moves", "-move.combination_moves",)
+
+    id = db.Column(db.Integer, primary_key=True)
+    move_id = db.Column(db.Integer, db.ForeignKey("moves.id"))
+    combination_id = db.Column(db.Integer, db.ForeignKey("combinations.id"))
+    sequence_number = db.Column(db.Integer)
+
+    move = db.relationship("Move", back_populates="combination_moves")
+    combination = db.relationship("Combination", back_populates="combination_moves")
