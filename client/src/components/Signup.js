@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { Button, ChakraProvider, FormControl, FormHelperText, Heading, Input, InputRightElement, InputGroup, Stack } from '@chakra-ui/react';
+import { Button, ChakraProvider, Flex, FormControl, FormHelperText, Heading, Input, InputRightElement, InputGroup, Stack } from '@chakra-ui/react';
 import { useFormik } from 'formik';
 import * as yup from "yup";
 
@@ -7,10 +7,15 @@ function Signup({setUser}){
 
     const [show, setShow] = useState(false)
     const handleClick = () => setShow(!show)
+    const [signup, setSignup] = useState(true)
+
+    function toggleSignup() {
+      setSignup((currentSignup) => !currentSignup )
+    }
 
     const signupSchema = yup.object().shape({
         username: yup.string().min(5, "Too short").max(50, "Too long").required("This field is required"),
-        email: yup.string().email("Invalid email").required("Email is required"),
+        email: yup.string().email("Invalid email"),
         password: yup.string().min(5, "Too short").max(50, "Too long").required("This field is required"),
     })
     const formik = useFormik({
@@ -21,8 +26,9 @@ function Signup({setUser}){
         },
         validationSchema: signupSchema,
         onSubmit: (values) => {
+          const endpoint = signup ? '/users' : '/login'
             console.log("i was clicked")
-            fetch("http://localhost:5555/api/v1/users", {
+            fetch(endpoint, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/JSON"
@@ -43,9 +49,18 @@ function Signup({setUser}){
 
 return (
   <ChakraProvider>
-    <Heading align="center">Sign-Up</Heading>
-    <form onSubmit={formik.handleSubmit}>
+    <Flex direction="column" align="center" justify="center" style={{ marginTop: '20px' }}>
+      <Heading>{signup ? 'Already have an account?' : ''}</Heading>
+      <Button onClick={toggleSignup} size='md'height='48px'width='200px' colorScheme='teal'>{signup ? 'Login' : 'Sign-Up'}</Button>
+      <div style={{ marginTop: '50px'}}></div>
+      <Heading as='h4' size='md'>{signup ? 'Or...' : ''}</Heading>
+      {signup && <Heading align="center">Sign-Up!</Heading>}
+      {signup && <Heading align="center">We'd love to dance with you.</Heading>}
+    
+
+    <form onSubmit={formik.handleSubmit} >
       <Stack spacing={5} align="center">
+
         <FormControl align="center">
           <Input
             variant="outline"
@@ -56,7 +71,8 @@ return (
             name="username"
           />
         </FormControl>
-        <FormControl align="center">
+
+        {signup && <FormControl align="center">
           <Input
             variant="outline"
             placeholder="Email"
@@ -66,7 +82,8 @@ return (
             name="email"
           />
           <FormHelperText>We'll never share your email</FormHelperText>
-        </FormControl>
+        </FormControl>}
+
         <FormControl align="center">
           <InputGroup justifyContent="center" mx="auto">
             <Input
@@ -78,6 +95,7 @@ return (
               name="password"
               type={show ? 'text' : 'password'}
             />
+
             <InputRightElement width='4.5rem'>
               <Button h='1.75rem' size='sm' onClick={handleClick}>
                 {show ? 'Hide' : 'Show'}
@@ -85,11 +103,10 @@ return (
             </InputRightElement>
           </InputGroup>
         </FormControl>
-        <Button type="submit" color="teal">
-          Submit
-        </Button>
+        <Button type="submit" color="teal">Submit</Button>
       </Stack>
     </form>
+    </Flex>
   </ChakraProvider>
 );
 }

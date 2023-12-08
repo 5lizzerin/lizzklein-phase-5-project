@@ -1,9 +1,13 @@
 import React from "react";
+import { Heading } from '@chakra-ui/react'
 
 
 function Header(){
+
     return (
-        <h1>Practique</h1>
+        <div display='flex' justifyContent='center' alignItems='flex-start' h='100vh'>
+        <Heading as='h1' size='4xl'>Practique</Heading>
+        </div>
     )
 }
 
