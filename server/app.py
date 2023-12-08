@@ -10,7 +10,7 @@ from flask_restful import Resource
 from config import app, db, api
 
 # Add your model imports
-from models import User
+from models import User, Combination, Move, Combination_move
 
 
 class Users(Resource):
@@ -30,11 +30,13 @@ def authorized():
         return make_response(user.to_dict(), 200)
     except:
         return make_response({"error": "User not found"}, 404)
+    
 
 @app.route("/api/v1/logout", methods=['DELETE'])
 def logout():
     session['user_id'] = None
     return make_response('', 204)
+
 
 @app.route("/api/v1/login", methods=["POST"])
 def login():
@@ -49,9 +51,16 @@ def login():
         else:
             return make_response({"error": "password incorrect"}, 401)
     except:
-        return make_response({'error': 'username incorrect'}, 401) 
+        return make_response({'error': 'username incorrect'}, 401)
 
-
+class Combinations(Resource):
+    def get(self):
+        combinations = [combination.to_dict() for combination in Combination.query.all()]
+        if not combinations:
+            return make_response({"Error": "No combinations found."}, 404)
+        else:
+            return make_response(combinations, 200)
+api.add_resource(Combinations, "/api/v1/allcombinations")
 
 @app.route('/')
 def index():
