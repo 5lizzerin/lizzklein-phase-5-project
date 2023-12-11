@@ -3,9 +3,9 @@ import { ChakraProvider, Button } from '@chakra-ui/react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Signup from "./Signup";
 import Home from "./Home";
-import AllCombos from "./AllCombos";
 import MyCombos from "./MyCombos"
 import Header from "./Header";
+import CombosContainer from "./CombosContainer"
 
 
 function App() {
@@ -55,7 +55,7 @@ function App() {
           </div>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/allcombinations" element={<AllCombos />} />
+            <Route path="/allcombinations" element={<CombosContainer />} />
             <Route path="/mycombinations" element={<MyCombos />} />
           </Routes>
         </div>
