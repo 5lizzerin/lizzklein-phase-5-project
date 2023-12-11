@@ -1,11 +1,18 @@
 import React, {useState, useEffect} from "react";
-import { ChakraProvider, Button } from '@chakra-ui/react';
+import { ChakraProvider, Button, CSSReset, extendTheme } from '@chakra-ui/react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Signup from "./Signup";
 import Home from "./Home";
 import MyCombos from "./MyCombos"
 import Header from "./Header";
 import CombosContainer from "./CombosContainer"
+
+const theme = extendTheme({
+  fonts: {
+    body: "YourFontFamily, sans-serif",
+    heading: "YourFontFamily, serif",
+  },
+});
 
 
 function App() {
@@ -36,7 +43,8 @@ function App() {
     return <Signup setUser={setUser} />
   }
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
+      <CSSReset />
       <Router>
         <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
           <Header />
