@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { ChakraProvider, Button, CSSReset, extendTheme } from '@chakra-ui/react';
+import { ChakraProvider, Button, CSSReset } from '@chakra-ui/react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Signup from "./Signup";
 import Home from "./Home";
