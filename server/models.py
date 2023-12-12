@@ -48,6 +48,7 @@ class Combination(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String)
     image = db.Column(db.String)
+    user_id =db.Column(db.Integer, db.ForeignKey("users.id"))
 
     combination_moves = db.relationship("Combination_move", order_by="Combination_move.sequence_number", back_populates = "combination")
 
