@@ -4,7 +4,6 @@ import FavoriteButton from "./FavoriteButton";
 
 function AllCombos({ combo, searchTerm }) {
 
-
   const filteredCombos = (combo || []).filter((combo) =>
     combo.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -48,7 +47,7 @@ function AllCombos({ combo, searchTerm }) {
           </FavoriteButton>
           <Box 
             mt="4">
-            {/* add in type of exercise later? */}
+            {/* add in type of combo here later? */}
           </Box>
         </Box>
       ))}
