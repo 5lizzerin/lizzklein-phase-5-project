@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from "react";
 import { ChakraProvider, Button, CSSReset } from '@chakra-ui/react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import Signup from "./Signup";
-import Home from "./Home";
-import MyCombos from "./MyCombos"
-import Header from "./Header";
 import CombosContainer from "./CombosContainer"
+import Header from "./Header";
+import Home from "./Home";
 import MovesContainer from "./MovesContainer";
+import MyCombos from "./MyCombos"
+import Signup from "./Signup";
 import theme from "./ChakraTheme";
 
 function App() {
@@ -38,10 +38,10 @@ function App() {
   }
   return (
     <ChakraProvider theme={theme}>
-      <CSSReset />
+    <CSSReset />
       <Router>
         <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
-          <Header colorScheme={theme.colors.pink} />
+          <Header />
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '20px' }}>
             <Link to="/"></Link>
             <Link to="/allcombinations"></Link>

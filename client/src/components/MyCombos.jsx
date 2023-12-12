@@ -1,13 +1,11 @@
 import React, {useState} from "react";
-import { Box, Heading, Image, SimpleGrid } from '@chakra-ui/react';
+import { Box, Heading, Image, SimpleGrid, theme } from '@chakra-ui/react';
 import CreateNewCombo from "./CreateNewCombo";
 
 function MyCombos(){
 
     const [myCombo, setMyCombo] = useState(null)
     const [combos, setCombos] = useState([])
-
-    
 
     const handleComboCreated = (newComboData) => {
         setMyCombo(newComboData);
@@ -16,7 +14,10 @@ function MyCombos(){
 
     return (
         <>
-          <Heading>My Combos</Heading>
+        <div>
+          <Heading color={theme.colors.pink}>My Combos</Heading>
+        </div>
+          <CreateNewCombo onComboCreated={handleComboCreated}></CreateNewCombo>
           <SimpleGrid columns={{ base: 1, md: 2, lg: 3, xl: 5 }} spacing={4}>
             {combos.map((combo) => (
               <Box
@@ -37,11 +38,9 @@ function MyCombos(){
                     borderRadius="lg"
                   />
                 </Box>
-                {/* You can add additional components or styles as needed */}
               </Box>
             ))}
           </SimpleGrid>
-          <CreateNewCombo onComboCreated={handleComboCreated}></CreateNewCombo>
         </>
       );
 }

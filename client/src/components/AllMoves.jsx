@@ -4,7 +4,6 @@ import FavoriteButton from "./FavoriteButton";
 
 function AllMoves({ move, searchTerm }) {
 
-
   const filteredMoves = (move || []).filter((move) =>
     move.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -48,7 +47,6 @@ function AllMoves({ move, searchTerm }) {
           </FavoriteButton>
           <Box 
             mt="4"> */}
-            {/* add in type of exercise later? */}
           </Box>
         </Box>
       ))}
