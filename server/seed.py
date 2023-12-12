@@ -6,7 +6,7 @@ from random import randint, choice as rc
 
 # Local imports
 from app import app
-from models import db, Move, Combination, Combination_move
+from models import db, Move, Combination, Combination_move, User
 
 if __name__ == '__main__':
     with app.app_context():
@@ -14,7 +14,6 @@ if __name__ == '__main__':
         Move.query.delete()
         Combination.query.delete()
         Combination_move.query.delete()
-
 
     # MOVES
         print("Creating Moves...")
@@ -43,13 +42,13 @@ if __name__ == '__main__':
 
     # COMBINATIONS
         print("Creating Combinations...")
-        plies_A = Combination(name = "Demi Plies 1", image = "https://2.bp.blogspot.com/_98gYZjx4gjA/TQcR5pkTgDI/AAAAAAAAAE8/WnYATGIGIXg/s1600/plie.jpg")
+        plies_A = Combination(name = "Demi Plies 1", image = "https://2.bp.blogspot.com/_98gYZjx4gjA/TQcR5pkTgDI/AAAAAAAAAE8/WnYATGIGIXg/s1600/plie.jpg", user_id=25)
 
-        plies_B = Combination(name = "Demi Plies 2", image = "https://mybeginnerpointe.com/wp-content/uploads/2015/02/269233-1.744vaganova_20academy_2_orig.jpg" )
+        plies_B = Combination(name = "Demi Plies 2", image = "https://mybeginnerpointe.com/wp-content/uploads/2015/02/269233-1.744vaganova_20academy_2_orig.jpg", user_id=25)
 
-        tendu_A = Combination(name = "Tendus 1", image = "https://i.pinimg.com/564x/30/3f/fe/303ffe5f57fe6c5c2d25e3872e8c8c88.jpg")
+        tendu_A = Combination(name = "Tendus 1", image = "https://i.pinimg.com/564x/30/3f/fe/303ffe5f57fe6c5c2d25e3872e8c8c88.jpg", user_id=25)
 
-        degege_A = Combination(name = "Degeges 1", image = "https://o.quizlet.com/5y7mNq3pa7Gup23K2h1oYw.png")
+        degege_A = Combination(name = "Degeges 1", image = "https://o.quizlet.com/5y7mNq3pa7Gup23K2h1oYw.png", user_id=25)
 
         combinations = [plies_A, plies_B, tendu_A, degege_A]
 

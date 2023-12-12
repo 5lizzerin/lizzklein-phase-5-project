@@ -28,7 +28,6 @@ function CreateNewCombo({onComboCreated}){
 
             if (response.ok) {
                 const newComboData = await response.json();
-                // Call the provided callback to notify the parent component
                 onComboCreated(newComboData);
             } else {
                 console.error("Failed to create a new combination");
