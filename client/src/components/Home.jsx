@@ -1,12 +1,10 @@
 import React from "react"
-import { Button, ButtonGroup, Card, CardBody, CardFooter, Divider, Flex, Heading, Image, Stack, Text } from '@chakra-ui/react'
+import { Button, ButtonGroup, Card, CardBody, CardFooter, Divider, useTheme, Flex, Heading, Image, Stack, Text } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom';
-
-
-
 
 function Home(){
 
+    const theme = useTheme();
     const navigate = useNavigate();
 
     function handleAllCombosButton(){
@@ -30,7 +28,7 @@ function Home(){
                     borderRadius='lg'
                     />
                     <Stack mt='6' spacing='3'>
-                    <Heading size='md'>All Combinations</Heading>
+                    <Heading size='md' color={theme.colors.teal} >All Combinations</Heading>
                     <Text>
                         Browse our database of all ballet combinations as inspiration for your next class!
                     </Text>
@@ -39,7 +37,7 @@ function Home(){
                 <Divider />
                 <CardFooter>
                     <ButtonGroup spacing='2'>
-                    <Button variant='solid' colorScheme='teal' onClick={handleAllCombosButton}>Browse Now</Button>
+                    <Button variant='solid' backgroundColor={theme.colors.teal} color={theme.colors.ivory} onClick={handleAllCombosButton}>Browse Now</Button>
                     </ButtonGroup>
                 </CardFooter>
                 </Card>
@@ -52,7 +50,7 @@ function Home(){
                     borderRadius='lg'
                     />
                     <Stack mt='6' spacing='3'>
-                    <Heading size='md'>My Combinations</Heading>
+                    <Heading size='md' color={theme.colors.teal}>My Combinations</Heading>
                     <Text>
                         View combinations you've saved and created, as well as edit existing combinations to prepare for your next class.
                     </Text>
@@ -61,7 +59,7 @@ function Home(){
                 <Divider />
                 <CardFooter>
                     <ButtonGroup spacing='2'>
-                    <Button variant='solid' colorScheme='teal' onClick={handleMyCombosButton}>Take me to My Combinations</Button>
+                    <Button variant='solid' backgroundColor={theme.colors.teal} color={theme.colors.ivory} onClick={handleMyCombosButton}>Take me to My Combinations</Button>
                     </ButtonGroup>
                 </CardFooter>
                 </Card>
