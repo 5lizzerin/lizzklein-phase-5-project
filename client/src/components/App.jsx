@@ -6,14 +6,7 @@ import Home from "./Home";
 import MyCombos from "./MyCombos"
 import Header from "./Header";
 import CombosContainer from "./CombosContainer"
-
-const theme = extendTheme({
-  fonts: {
-    body: "YourFontFamily, sans-serif",
-    heading: "YourFontFamily, serif",
-  },
-});
-
+import theme from "./ChakraTheme";
 
 function App() {
   const [user, setUser] = useState(null)
@@ -47,18 +40,18 @@ function App() {
       <CSSReset />
       <Router>
         <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
-          <Header />
+          <Header colorScheme={theme.colors.pink} />
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '20px' }}>
             <Link to="/"></Link>
             <Link to="/allcombinations"></Link>
             <Link to="/mycombinations"></Link>
-            <div style={{ marginRight: 'auto' }}>
-              <Button colorScheme='teal' variant='ghost'>
+            <div style={{ marginRight: 'auto' }} >
+              <Button color={theme.colors.pink} borderColor={theme.colors.pink} variant='outline'>
                 <Link to="/">Home</Link>
               </Button>
             </div>
             <div style={{ marginLeft: 'auto' }}>
-              <Button colorScheme='teal' variant='ghost' onClick={handleLogout}>Logout</Button>
+              <Button color={theme.colors.pink} borderColor={theme.colors.pink} variant='outline' onClick={handleLogout}>Logout</Button>
             </div>
           </div>
           <Routes>

@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Heading, Image, SimpleGrid } from '@chakra-ui/react';
+import FavoriteButton from "./FavoriteButton";
 
 function AllCombos({ combo, searchTerm }) {
 
@@ -15,6 +16,7 @@ function AllCombos({ combo, searchTerm }) {
           <Box mt="2" height="200px" width="100%" overflow="hidden" borderRadius="lg">
             <Image src={combo.image} alt='plie' objectFit="cover" height="100%" width="100%" borderRadius="lg" />
           </Box>
+          <FavoriteButton></FavoriteButton>
           <Box mt="4">
             {/* add in type of exercise later? */}
           </Box>
