@@ -2,11 +2,11 @@ import React from "react";
 import { Box, Heading, Image, SimpleGrid } from '@chakra-ui/react';
 import FavoriteButton from "./FavoriteButton";
 
-function AllCombos({ combo, searchTerm }) {
+function AllMoves({ move, searchTerm }) {
 
 
-  const filteredCombos = (combo || []).filter((combo) =>
-    combo.name.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredMoves = (move || []).filter((move) =>
+    move.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -15,16 +15,16 @@ function AllCombos({ combo, searchTerm }) {
       spacing={4}
     >
 
-        {filteredCombos.map((combo) => (
+        {filteredMoves.map((move) => (
           <Box 
-            key={combo.id} 
+            key={move.id} 
             boxShadow="lg" 
             p="6" 
             rounded="md"
           >
           <Heading 
             fontSize="xl"
-            >{combo.name}
+            >{move.name}
           </Heading>
           <Box 
             mt="2" 
@@ -34,20 +34,20 @@ function AllCombos({ combo, searchTerm }) {
             borderRadius="lg"
           >
           <Image 
-            src={combo.image} 
+            src={move.image} 
             alt='plie' 
             objectFit="cover" 
             height="100%" 
             width="100%" 
             borderRadius="lg" 
           />
-          </Box>
+          {/* </Box>
           <FavoriteButton 
-            combo={combo} 
-            id={combo.id}>
+            move={move} 
+            id={move.id}>
           </FavoriteButton>
           <Box 
-            mt="4">
+            mt="4"> */}
             {/* add in type of exercise later? */}
           </Box>
         </Box>
@@ -56,4 +56,4 @@ function AllCombos({ combo, searchTerm }) {
   );
 }
 
-export default AllCombos;
+export default AllMoves;
