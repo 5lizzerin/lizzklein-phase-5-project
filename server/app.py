@@ -60,6 +60,12 @@ class Combinations(Resource):
             return make_response({"Error": "No combinations found."}, 404)
         else:
             return make_response(combinations, 200)
+    def post(self):
+        data = request.get_json()
+        combination = Combination(name=data["name"], image=data["image"])
+        db.session.add(combination)
+        db.session.commit()
+        return make_response({"Combination": combination.to_dict()}, 201 )
 api.add_resource(Combinations, "/api/v1/allcombinations")
 
 class CombinationById(Resource):

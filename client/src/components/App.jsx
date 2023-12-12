@@ -8,7 +8,6 @@ import Header from "./Header";
 import CombosContainer from "./CombosContainer"
 import MovesContainer from "./MovesContainer";
 import theme from "./ChakraTheme";
-import AllMoves from "./AllMoves";
 
 function App() {
   const [user, setUser] = useState(null)
