@@ -62,6 +62,25 @@ class Combinations(Resource):
             return make_response(combinations, 200)
 api.add_resource(Combinations, "/api/v1/allcombinations")
 
+class CombinationById(Resource):
+    def get(self, id):
+        combination = Combination.query.get(id)
+        if not combination:
+            return make_response({"Error": "no combinations by that id"}, 404)
+        else:
+            return make_response(combination.to_dict(), 200)
+
+    def patch(self, id):
+        combination = Combination.query.get(id)
+        if not combination:
+            return make_response({"Error": "no scientist found with that id"}, 404)
+        data = request.json
+        for attr in data:
+            setattr(combination, attr, data[attr])
+        db.session.commit()
+        return make_response(combination.to_dict(), 200)
+api.add_resource(CombinationById, "/api/v1/allcombinations/<id>")
+
 @app.route('/')
 def index():
     return '<h1>Project Server</h1>'
