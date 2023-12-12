@@ -6,7 +6,9 @@ import Home from "./Home";
 import MyCombos from "./MyCombos"
 import Header from "./Header";
 import CombosContainer from "./CombosContainer"
+import MovesContainer from "./MovesContainer";
 import theme from "./ChakraTheme";
+import AllMoves from "./AllMoves";
 
 function App() {
   const [user, setUser] = useState(null)
@@ -45,6 +47,7 @@ function App() {
             <Link to="/"></Link>
             <Link to="/allcombinations"></Link>
             <Link to="/mycombinations"></Link>
+            <Link to="/allmoves"></Link>
             <div style={{ marginRight: 'auto' }} >
               <Button color={theme.colors.pink} borderColor={theme.colors.pink} variant='outline'>
                 <Link to="/">Home</Link>
@@ -58,6 +61,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/allcombinations" element={<CombosContainer />} />
             <Route path="/mycombinations" element={<MyCombos />} />
+            <Route path="/allmoves" element={<MovesContainer />} />
           </Routes>
         </div>
       </Router>

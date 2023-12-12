@@ -1,10 +1,10 @@
 import React from "react";
 import { Input } from '@chakra-ui/react';
 
-function Search({ setSearchTerm }) {
+function MoveSearch({ setSearchTerm }) {
   return (
     <Input
-      placeholder='Search for a combination'
+      placeholder='Search for a specific move'
       size='md'
       variant='flushed'
       width="500px"
@@ -14,4 +14,4 @@ function Search({ setSearchTerm }) {
   );
 }
 
-export default Search;
+export default MoveSearch;

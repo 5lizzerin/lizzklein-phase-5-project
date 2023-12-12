@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Heading } from '@chakra-ui/react';
-import Search from "./Search";
+import { Box, Heading, useTheme } from '@chakra-ui/react';
+import ComboSearch from "./ComboSearch";
 import AllCombos from "./AllCombos";
 
 function CombosContainer() {
   const [combo, setCombo] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const theme = useTheme();
 
   useEffect(() => {
     fetch("/allcombinations")
@@ -20,9 +21,11 @@ function CombosContainer() {
 
   return (
     <>
-      <Heading>All Combos</Heading>
-      <Search setSearchTerm={setSearchTerm} />
-      <AllCombos combo={combo} searchTerm={searchTerm} />
+      <Box textAlign="center">
+        <Heading color={theme.colors.honeysuckle} mb={4}>All Combinations</Heading>
+        <ComboSearch setSearchTerm={setSearchTerm} />
+        <AllCombos combo={combo} searchTerm={searchTerm} />
+      </Box>
     </>
   );
 }

@@ -81,6 +81,16 @@ class CombinationById(Resource):
         return make_response(combination.to_dict(), 200)
 api.add_resource(CombinationById, "/api/v1/allcombinations/<id>")
 
+
+class Moves(Resource):
+    def get(self):
+        moves = [move.to_dict() for move in Move.query.all()]
+        if not moves:
+            return make_response({"Error": "no moves found"}, 404)
+        else:
+            return make_response(moves, 200)
+api.add_resource(Moves, "/api/v1/allmoves")
+
 @app.route('/')
 def index():
     return '<h1>Project Server</h1>'
