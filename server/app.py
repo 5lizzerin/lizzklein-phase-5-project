@@ -52,6 +52,15 @@ def login():
             return make_response({"error": "password incorrect"}, 401)
     except:
         return make_response({'error': 'username incorrect'}, 401)
+    
+class CombinationsByUser(Resource):
+    def get(self, id):
+        combinations = [combination.to_dict() for combination in Combination.query.filter_by(user_id=id)]
+        if not combinations:
+            make_response({"error" : "no combinations"}, 404)
+        else:
+            return make_response(combinations, 200)
+api.add_resource(CombinationsByUser, "/api/v1/users/<id>/allcombinations")
 
 class Combinations(Resource):
     def get(self):
@@ -62,7 +71,7 @@ class Combinations(Resource):
             return make_response(combinations, 200)
     def post(self):
         data = request.get_json()
-        combination = Combination(name=data["name"], image=data["image"])
+        combination = Combination(name=data["name"], image=data["image"], user_id=int(data["user_id"]))
         db.session.add(combination)
         db.session.commit()
         return make_response({"Combination": combination.to_dict()}, 201 )
@@ -72,21 +81,28 @@ class CombinationById(Resource):
     def get(self, id):
         combination = Combination.query.get(id)
         if not combination:
-            return make_response({"Error": "no combinations by that id"}, 404)
+            return make_response({"Error": "No combination found with that id."}, 404)
         else:
             return make_response(combination.to_dict(), 200)
 
     def patch(self, id):
         combination = Combination.query.get(id)
         if not combination:
-            return make_response({"Error": "no scientist found with that id"}, 404)
+            return make_response({"Error": "No combination found with that id"}, 404)
         data = request.json
         for attr in data:
             setattr(combination, attr, data[attr])
         db.session.commit()
         return make_response(combination.to_dict(), 200)
+    
+    def delete(self, id):
+        combination = Combination.query.get(id)
+        if not combination:
+            return make_response({"Error" : "No combination found with that id."}, 404)
+        db.session.delete(combination)
+        db.session.commit()
+        return make_response("", 204)
 api.add_resource(CombinationById, "/api/v1/allcombinations/<id>")
-
 
 class Moves(Resource):
     def get(self):
@@ -96,6 +112,17 @@ class Moves(Resource):
         else:
             return make_response(moves, 200)
 api.add_resource(Moves, "/api/v1/allmoves")
+
+
+class CombinationMoves(Resource):
+    def get(self):
+        combo_moves = [combo_move.to_dict() for combo_move in Combination_move.query.all()]
+        if not combo_moves:
+            return make_response({"Error" : "No combo_moves found"}, 404)
+        else:
+            return make_response(combo_moves, 200)
+api.add_resource(CombinationMoves, "/api/v1/allcombinationmoves")
+
 
 @app.route('/')
 def index():
