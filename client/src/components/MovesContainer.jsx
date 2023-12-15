@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Heading, useTheme } from '@chakra-ui/react';
+import { Box, Divider, Heading, Text, useTheme } from '@chakra-ui/react';
 // import Search from "./ComboSearch";
 import AllMoves from "./AllMoves"
 import MoveSearch from "./MoveSearch";
@@ -24,7 +24,9 @@ function MovesContainer() {
     <>
       <Box textAlign="center">
         <Heading color={theme.colors.honeysuckle} mb={4}>All Moves</Heading>
+        <Text color={theme.colors.honeysuckle} mb={8}>Click on a move to see its description</Text>
         <MoveSearch setSearchTerm={setSearchTerm} />
+        <Divider></Divider>
         <AllMoves move={move} searchTerm={searchTerm} />
       </Box>
     </>

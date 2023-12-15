@@ -1,12 +1,28 @@
-import React from "react";
-import { Box, Heading, Image, SimpleGrid } from '@chakra-ui/react';
-import FavoriteButton from "./FavoriteButton";
+import React, {useState} from "react";
+import { Box, Heading, Image, SimpleGrid, useDisclosure} from '@chakra-ui/react';
+// import FavoriteButton from "./FavoriteButton";
+import ComboMovesModal from "./ComboMovesModal";
 
 function AllCombos({ combo, searchTerm }) {
+
+  const [showCombo, setShowCombo] = useState(null);
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   const filteredCombos = (combo || []).filter((combo) =>
     combo.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const handleShowComboMoves = (event) => {
+    fetch(`/allcombinationmoves/${event.target.id}`)
+                .then((resp) => {
+                    if (resp.ok) {
+                        resp.json().then(setShowCombo)
+                    } else {
+                        console.log('error getting all combination moves');
+                    }
+                });
+    onOpen();
+  }
 
   return (
     <SimpleGrid 
@@ -33,18 +49,22 @@ function AllCombos({ combo, searchTerm }) {
             borderRadius="lg"
           >
           <Image 
-            src={combo.image} 
+            src={combo.image}
+            id = {combo.id} 
             alt='plie' 
             objectFit="cover" 
             height="100%" 
             width="100%" 
-            borderRadius="lg" 
+            borderRadius="lg"
+            onClose={onClose}
+            onClick={handleShowComboMoves} 
           />
+          <ComboMovesModal isOpen={isOpen} onClose={onClose} showCombo={showCombo}></ComboMovesModal>
           </Box>
-          <FavoriteButton 
+          {/* <FavoriteButton 
             combo={combo} 
             id={combo.id}>
-          </FavoriteButton>
+          </FavoriteButton> */}
           <Box 
             mt="4">
             {/* add in type of combo here later? */}

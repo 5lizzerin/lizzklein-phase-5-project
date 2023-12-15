@@ -59,7 +59,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/allcombinations" element={<CombosContainer />} />
-            <Route path="/mycombinations" element={<MyCombos />} />
+            <Route path="/mycombinations" element={<MyCombos user_id = {user.id} />} />
             <Route path="/allmoves" element={<MovesContainer />} />
           </Routes>
         </div>

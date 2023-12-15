@@ -49,19 +49,46 @@ function Signup({setUser}){
 
 return (
   <ChakraProvider>
-    <Flex direction="column" align="center" justify="center" style={{ marginTop: '20px' }}>
-      <Heading>{signup ? 'Already have an account?' : ''}</Heading>
-      <Button onClick={toggleSignup} size='md'height='48px'width='200px' colorScheme='teal'>{signup ? 'Login' : 'Sign-Up'}</Button>
+    <Flex 
+      direction="column" 
+      align="center" 
+      justify="center" 
+      style={{ marginTop: '20px' }}
+    >
+
+      <Heading>
+        {signup ? 'Already have an account?' : ''}
+      </Heading>
+
+      <Button 
+        onClick={toggleSignup} 
+        size='md'
+        height='48px'
+        width='200px' 
+        colorScheme='teal'>
+          {signup ? 'Login' : 'Sign-Up'}
+      </Button>
+
       <div style={{ marginTop: '50px'}}></div>
-      <Heading as='h4' size='md'>{signup ? 'Or...' : ''}</Heading>
+        <Heading 
+          as='h4' 
+          size='md'>
+            {signup ? 'Or...' : ''}
+        </Heading>
+
       {signup && <Heading align="center">Sign-Up!</Heading>}
       {signup && <Heading align="center">We'd love to dance with you.</Heading>}
     
 
     <form onSubmit={formik.handleSubmit} >
-      <Stack spacing={5} align="center">
+      <Stack 
+        spacing={5} 
+        align="center"
+      >
 
-        <FormControl align="center">
+        <FormControl 
+          align="center"
+        >
           <Input
             variant="outline"
             placeholder="Username"
@@ -70,6 +97,7 @@ return (
             onChange={formik.handleChange}
             name="username"
           />
+          
         </FormControl>
 
         {signup && <FormControl align="center">
