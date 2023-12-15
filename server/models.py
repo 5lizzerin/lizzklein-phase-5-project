@@ -33,6 +33,7 @@ class User(db.Model, SerializerMixin):
 
 class Move(db.Model, SerializerMixin):
     __tablename__ = "moves"
+    serialize_rules = ("-combination_moves",)
 
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String)
@@ -56,7 +57,7 @@ class Combination(db.Model, SerializerMixin):
 
 class Combination_move(db.Model, SerializerMixin):
     __tablename__ = "combination_moves"
-    serialize_rules = ("-combination.combination_moves", "-move.combination_moves",)
+    serialize_rules = ("-combination.combination_moves", "-move.combination_moves", "-combination.image",  "-move.image",)
 
     id = db.Column(db.Integer, primary_key=True)
     move_id = db.Column(db.Integer, db.ForeignKey("moves.id"))

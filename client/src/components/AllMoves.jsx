@@ -1,12 +1,28 @@
-import React from "react";
-import { Box, Heading, Image, SimpleGrid } from '@chakra-ui/react';
-import FavoriteButton from "./FavoriteButton";
+import React, {useState} from "react";
+import { Box, Heading, Image, SimpleGrid, useDisclosure } from '@chakra-ui/react';
+import MovesDescriptionModal from "./MoveDescriptionModal";
+
 
 function AllMoves({ move, searchTerm }) {
+
+  const [showMove, setShowMoves] = useState(null);
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   const filteredMoves = (move || []).filter((move) =>
     move.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const handleShowMoveDescription = (event) => {
+    fetch(`/allmoves/${event.target.id}`)
+                .then((resp) => {
+                    if (resp.ok) {
+                        resp.json().then(setShowMoves)
+                    } else {
+                        console.log('error getting all combination moves');
+                    }
+                });
+    onOpen();
+  }
 
   return (
     <SimpleGrid 
@@ -33,13 +49,17 @@ function AllMoves({ move, searchTerm }) {
             borderRadius="lg"
           >
           <Image 
-            src={move.image} 
+            src={move.image}
+            id={move.id} 
             alt='plie' 
             objectFit="cover" 
             height="100%" 
             width="100%" 
-            borderRadius="lg" 
+            borderRadius="lg"
+            onClick={handleShowMoveDescription}
+            onClose={onClose} 
           />
+          <MovesDescriptionModal isOpen={isOpen} onClose={onClose} showMove={showMove} ></MovesDescriptionModal>
           {/* </Box>
           <FavoriteButton 
             move={move} 

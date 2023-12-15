@@ -1,7 +1,8 @@
 import React from "react";
 import { Box, Button, Flex, Heading, Input, Stack, useTheme } from '@chakra-ui/react';
 
-function CreateNewCombo({onComboCreated}){
+function CreateNewCombo({onComboCreated, user_id}){
+    console.log(user_id)
     const theme = useTheme();
 
     // function handleNewCombo(){
@@ -23,6 +24,7 @@ function CreateNewCombo({onComboCreated}){
                 body: JSON.stringify({
                     name: combinationName,
                     image: imageURL,
+                    user_id: user_id
                 }),
             });
 

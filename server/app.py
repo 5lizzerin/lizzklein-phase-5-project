@@ -113,6 +113,15 @@ class Moves(Resource):
             return make_response(moves, 200)
 api.add_resource(Moves, "/api/v1/allmoves")
 
+class MovesById(Resource):
+    def get(self, id):
+        move_id = Move.query.get(id)
+        if not move_id:
+            make_response({"Error": "no move found with that id"}, 404)
+        else:
+            return make_response(move_id.to_dict(), 200)
+api.add_resource(MovesById, "/api/v1/allmoves/<id>")
+
 
 class CombinationMoves(Resource):
     def get(self):
@@ -122,6 +131,15 @@ class CombinationMoves(Resource):
         else:
             return make_response(combo_moves, 200)
 api.add_resource(CombinationMoves, "/api/v1/allcombinationmoves")
+
+class CombinationMovesByCombinationId(Resource):
+    def get(self, id):
+        combo_move_id = Combination.query.get(id)
+        if not combo_move_id:
+            return make_response({"Error": "No combination found with that id."}, 404)
+        else:
+            return make_response(combo_move_id.to_dict(rules=("-move.image", "-move.description", "-combination.image"),), 200)
+api.add_resource(CombinationMovesByCombinationId, "/api/v1/allcombinationmoves/<id>")
 
 
 @app.route('/')
