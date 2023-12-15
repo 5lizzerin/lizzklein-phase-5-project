@@ -18,7 +18,7 @@ function ComboMovesModal({isOpen, onClose, showCombo}){
             <ModalHeader>This combination looks like this:</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-            <Text fontWeight='bold' mb='1rem'>{showCombo.combination_moves.map((move, index, array) => (
+            <Text mb='1rem'>{showCombo.combination_moves.map((move, index, array) => (
                 <React.Fragment key={index}>
                     {move.move.name}
                     {index !== array.length - 1 && <br />}
