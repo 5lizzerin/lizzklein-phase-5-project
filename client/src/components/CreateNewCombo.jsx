@@ -1,9 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 import { Box, Button, Flex, Heading, Input, Stack, useTheme } from '@chakra-ui/react';
 
 function CreateNewCombo({onComboCreated, user_id}){
-    // console.log(user_id)
     const theme = useTheme();
+    const [combinationName, setCombinationName] = useState("")
+    const [imageURL, setImageURL] = useState("")
 
     async function handleNewCombo() {
         const combinationName = document.getElementById("combinationName").value;
@@ -25,6 +26,8 @@ function CreateNewCombo({onComboCreated, user_id}){
             if (response.ok) {
                 const newComboData = await response.json();
                 onComboCreated(newComboData);
+                setCombinationName("");
+                setImageURL("");
             } else {
                 console.error("Failed to create a new combination");
             }
@@ -59,14 +62,18 @@ function CreateNewCombo({onComboCreated, user_id}){
                 align="center" 
             >
                 <Input 
-                    id="combinationName" 
+                    placeholder="Combination Name:"
+                    id="combinationName"
+                    value={combinationName}
+                    onChange={(e) => setCombinationName(e.target.value)} 
                     width="500px" 
-                    placeholder="Combination Name:" 
                     mb={4} 
                     backgroundColor="white" 
                 />
                 <Input 
-                    id="imageURL" 
+                    id="imageURL"
+                    value={imageURL}
+                    onChange={(e) => setImageURL(e.target.value)} 
                     width="500px" 
                     placeholder="Add an image url:" 
                     mb={4} backgroundColor="white" 
