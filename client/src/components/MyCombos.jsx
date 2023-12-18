@@ -3,46 +3,34 @@ import { Box, Heading, Image, SimpleGrid, theme } from '@chakra-ui/react';
 import { DeleteIcon, EditIcon } from '@chakra-ui/icons'
 import CreateNewCombo from "./CreateNewCombo";
 
-function MyCombos({removeCombination, user_id}){
-  // console.log(user_id)
-
+function MyCombos({user_id}){
   const [myCombos, setMyCombos] = useState([])
 
     useEffect(() => {
       fetch(`/users/${user_id}/allcombinations`)
         .then((resp) => {
           if (resp.ok) {
-            resp.json().then((myCombo) => setMyCombos(myCombo));
+            resp.json().then((myCombos) => setMyCombos(myCombos));
           } else {
             console.log('error getting all combos');
           }
         });
     }, []);
 
-  
+
     const handleComboCreated = (newComboData) => {
-        setMyCombos(newComboData);
-        setMyCombos((myCombos) => [...myCombos, newComboData]);
+        setMyCombos((myCombos) => [...myCombos, newComboData.Combination]);
     };
 
-    // const handleComboDeleted = (id) => {
-    //   console.log("i was clicked!")
-    //   fetch(`/allcombinations/${id}`, {
-    //     method: "DELETE"
-    //   })
-    //   .then((response) => {
-    //     if (!response.ok) {
-    //       throw new Error(`Failed to delete combination with id ${id}`);
-    //     }
-    //     return response;
-    //   })
-    //   .then(() => removeCombination(id))
-    // };
 
-    // const handleEditCombo = (id) => {
-    //   console.log("i was clicked!")
-    // }
-
+    function handleComboDeleted(id){
+      fetch(`/allcombinations/${id}`, {
+        method: "DELETE",
+      })
+      .then(() => {
+        setMyCombos((myCombos) => myCombos.filter((oneCombo) => oneCombo.id !== id));
+      })
+    }
 
     return (
         <>
@@ -58,8 +46,7 @@ function MyCombos({removeCombination, user_id}){
             columns={{ base: 1, md: 2, lg: 3, xl: 5 }} 
             spacing={4}
           >
-
-          {console.log(myCombos)}
+            
             {myCombos.map((myCombo) => (
               
               <Box
@@ -74,9 +61,9 @@ function MyCombos({removeCombination, user_id}){
                   {myCombo.name}
                 </Heading>
 
-                {/* <DeleteIcon 
+                <DeleteIcon 
                   onClick={() => handleComboDeleted(myCombo.id)}>
-                </DeleteIcon> */}
+                </DeleteIcon>
 
                 {/* <EditIcon
                   onClick={() => handleEditCombo(combo.Combination.id)}>

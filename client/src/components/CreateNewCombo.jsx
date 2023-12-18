@@ -6,7 +6,6 @@ function CreateNewCombo({onComboCreated, user_id}){
     const theme = useTheme();
 
     async function handleNewCombo() {
-        console.log("creating new combo")
         const combinationName = document.getElementById("combinationName").value;
         const imageURL = document.getElementById("imageURL").value;
 
@@ -36,7 +35,15 @@ function CreateNewCombo({onComboCreated, user_id}){
 
     return(
         <>
-        <Box backgroundColor={theme.colors.ivory} padding="10px" rounded="md" boxShadow="lg" margin="50px" width="650px" align="center">            
+        <Box 
+            backgroundColor={theme.colors.ivory} 
+            padding="10px" 
+            rounded="md" 
+            boxShadow="lg" 
+            margin="50px" 
+            width="650px" 
+            align="center"
+        >            
             <Heading 
                 mb={4} 
                 color={theme.colors.pink}
@@ -47,10 +54,32 @@ function CreateNewCombo({onComboCreated, user_id}){
                 direction="column">
             </Flex>
             
-            <Stack spacing={1} align="center" >
-                <Input id="combinationName" width="500px" placeholder="Combination Name:" mb={4} backgroundColor="white" />
-                <Input id="imageURL" width="500px" placeholder="Add an image url:" mb={4} backgroundColor="white" />
-                <Button width="200px" type="submit" ml={4} color="white" backgroundColor={theme.colors.teal} onClick={handleNewCombo}>Create a new combo</Button>
+            <Stack 
+                spacing={1} 
+                align="center" 
+            >
+                <Input 
+                    id="combinationName" 
+                    width="500px" 
+                    placeholder="Combination Name:" 
+                    mb={4} 
+                    backgroundColor="white" 
+                />
+                <Input 
+                    id="imageURL" 
+                    width="500px" 
+                    placeholder="Add an image url:" 
+                    mb={4} backgroundColor="white" 
+                />
+                <Button 
+                    width="200px" 
+                    type="submit" 
+                    ml={4} 
+                    color="white" 
+                    backgroundColor={theme.colors.teal} 
+                    onClick={handleNewCombo}
+                    >Create a new combo
+                </Button>
             </Stack>
         </Box>
         </>
