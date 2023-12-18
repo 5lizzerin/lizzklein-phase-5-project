@@ -19,20 +19,29 @@ function CombosContainer() {
       });
   }, []);
 
-  const removeCombination = (id) => {
-    const newCombinations = combo.filter((oneCombination) => oneCombination.id !== id)
-    setCombo(newCombinations)
-  }
-
 
   return (
     <>
-      <Box textAlign="center">
-        <Heading color={theme.colors.honeysuckle} mb={4}>All Combinations</Heading>
-        <Text color={theme.colors.honeysuckle} mb={8}>Click on a combination to see the moves within it</Text>
-        <ComboSearch setSearchTerm={setSearchTerm} />
+      <Box 
+        textAlign="center">
+        <Heading 
+          color={theme.colors.honeysuckle} 
+          mb={4}
+          >All Combinations
+        </Heading>
+        <Text 
+          color={theme.colors.honeysuckle} 
+          mb={8}
+          >Click on a combination to see the moves within it
+        </Text>
+        <ComboSearch 
+          setSearchTerm={setSearchTerm} 
+        />
         <Divider></Divider>
-        <AllCombos combo={combo} searchTerm={searchTerm} removeCombination={removeCombination} />
+        <AllCombos 
+          combo={combo} 
+          searchTerm={searchTerm} 
+        />
       </Box>
     </>
   );
