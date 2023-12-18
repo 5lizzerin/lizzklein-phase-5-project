@@ -6,47 +6,42 @@ import CreateNewCombo from "./CreateNewCombo";
 function MyCombos({removeCombination, user_id}){
   // console.log(user_id)
 
-    const [myCombo, setMyCombo] = useState(null)
-    const [combos, setCombos] = useState([])
+  const [myCombos, setMyCombos] = useState([])
 
-
-    const getMyCombos= () => {
+    useEffect(() => {
       fetch(`/users/${user_id}/allcombinations`)
-      .then(r => r.json())
-      .then(usersCombos => setMyCombo(usersCombos))
-    }
+        .then((resp) => {
+          if (resp.ok) {
+            resp.json().then((myCombo) => setMyCombos(myCombo));
+          } else {
+            console.log('error getting all combos');
+          }
+        });
+    }, []);
 
-    useEffect( getMyCombos , [])
-
-    // my_combo = Combination.user_id
-    // if my_combo == current user_id, setMyCombo(myCombo)
-    // find the current logged in user's id, find the combinations that match that id. set the state to that user's combos
-
-
-    // DELETE A COMBO
+  
     const handleComboCreated = (newComboData) => {
-      console.log("I was clicked")
-        setMyCombo(newComboData);
-        setCombos((prevCombos) => [...prevCombos, newComboData]);
+        setMyCombos(newComboData);
+        setMyCombos((myCombos) => [...myCombos, newComboData]);
     };
 
-    const handleComboDeleted = (id) => {
-      console.log("i was clicked!")
-      fetch(`/allcombinations/${id}`, {
-        method: "DELETE"
-      })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`Failed to delete combination with id ${id}`);
-        }
-        return response;
-      })
-      .then(() => removeCombination(id))
-    };
+    // const handleComboDeleted = (id) => {
+    //   console.log("i was clicked!")
+    //   fetch(`/allcombinations/${id}`, {
+    //     method: "DELETE"
+    //   })
+    //   .then((response) => {
+    //     if (!response.ok) {
+    //       throw new Error(`Failed to delete combination with id ${id}`);
+    //     }
+    //     return response;
+    //   })
+    //   .then(() => removeCombination(id))
+    // };
 
-    const handleEditCombo = (id) => {
-      console.log("i was clicked!")
-    }
+    // const handleEditCombo = (id) => {
+    //   console.log("i was clicked!")
+    // }
 
 
     return (
@@ -54,13 +49,21 @@ function MyCombos({removeCombination, user_id}){
         <div>
           <Heading color={theme.colors.pink}>My Combos</Heading>
         </div>
-          <CreateNewCombo onComboCreated={handleComboCreated} user_id = {user_id}></CreateNewCombo>
-          <SimpleGrid columns={{ base: 1, md: 2, lg: 3, xl: 5 }} spacing={4}>
+          <CreateNewCombo 
+            onComboCreated={handleComboCreated} 
+            user_id = {user_id}>
+          </CreateNewCombo>
 
-            {combos.map((combo) => (
+          <SimpleGrid 
+            columns={{ base: 1, md: 2, lg: 3, xl: 5 }} 
+            spacing={4}
+          >
 
+          {console.log(myCombos)}
+            {myCombos.map((myCombo) => (
+              
               <Box
-                key={combo.Combination.id}
+                key={myCombo.id}
                 boxShadow="lg"
                 p="6"
                 rounded="md"
@@ -68,16 +71,16 @@ function MyCombos({removeCombination, user_id}){
               >
                 <Heading 
                   fontSize="xl">
-                    {combo.Combination.name}
+                  {myCombo.name}
                 </Heading>
 
-                <DeleteIcon 
-                  onClick={() => handleComboDeleted(combo.Combination.id)}>
-                </DeleteIcon>
+                {/* <DeleteIcon 
+                  onClick={() => handleComboDeleted(myCombo.id)}>
+                </DeleteIcon> */}
 
-                <EditIcon
+                {/* <EditIcon
                   onClick={() => handleEditCombo(combo.Combination.id)}>
-                </EditIcon>
+                </EditIcon> */}
 
                 <Box 
                   mt="2" 
@@ -88,8 +91,8 @@ function MyCombos({removeCombination, user_id}){
                 >
 
                   <Image
-                    src={combo.Combination.image}
-                    alt={combo.Combination.name}
+                    src={myCombo.image}
+                    alt={myCombo.name}
                     objectFit="cover"
                     height="100%"
                     width="100%"
@@ -98,7 +101,7 @@ function MyCombos({removeCombination, user_id}){
 
                 </Box>
               </Box>
-            ))}
+              ))}
           </SimpleGrid>
         </>
       );
