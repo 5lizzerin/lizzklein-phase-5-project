@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from "react";
-import { Box, Heading, Image, SimpleGrid, theme } from '@chakra-ui/react';
+import { Box, Heading, Image, SimpleGrid, useTheme } from '@chakra-ui/react';
 import { DeleteIcon, EditIcon } from '@chakra-ui/icons'
 import CreateNewCombo from "./CreateNewCombo";
 
 function MyCombos({user_id}){
-  const [myCombos, setMyCombos] = useState([])
+  const [myCombos, setMyCombos] = useState([]);
+  const theme = useTheme();
 
     useEffect(() => {
       fetch(`/users/${user_id}/allcombinations`)
@@ -35,7 +36,11 @@ function MyCombos({user_id}){
     return (
         <>
         <div>
-          <Heading color={theme.colors.pink}>My Combos</Heading>
+          <Heading
+            textAlign="center" 
+            color={theme.colors.honeysuckle}
+            >My Combos
+          </Heading>
         </div>
           <CreateNewCombo 
             onComboCreated={handleComboCreated} 
