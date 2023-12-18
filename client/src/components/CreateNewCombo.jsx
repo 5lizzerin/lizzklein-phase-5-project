@@ -2,13 +2,8 @@ import React from "react";
 import { Box, Button, Flex, Heading, Input, Stack, useTheme } from '@chakra-ui/react';
 
 function CreateNewCombo({onComboCreated, user_id}){
-    console.log(user_id)
+    // console.log(user_id)
     const theme = useTheme();
-
-    // function handleNewCombo(){
-    //     console.log("I was clicked")
-    //     onComboCreated("New Combo Data")
-    // }
 
     async function handleNewCombo() {
         console.log("creating new combo")
@@ -16,7 +11,7 @@ function CreateNewCombo({onComboCreated, user_id}){
         const imageURL = document.getElementById("imageURL").value;
 
         try {
-            const response = await fetch("/allcombinations", {
+            const response = await fetch(`/users/${user_id}/allcombinations`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
