@@ -5,6 +5,7 @@ function CreateNewCombo({onComboCreated, user_id}){
     const theme = useTheme();
     const [combinationName, setCombinationName] = useState("")
     const [imageURL, setImageURL] = useState("")
+    const [move1, setMove1] = useState("")
 
     async function handleNewCombo() {
         const combinationName = document.getElementById("combinationName").value;
@@ -62,7 +63,7 @@ function CreateNewCombo({onComboCreated, user_id}){
                 align="center" 
             >
                 <Input 
-                    placeholder="Combination Name:"
+                    placeholder="Combination Name (you can change this later)"
                     id="combinationName"
                     value={combinationName}
                     onChange={(e) => setCombinationName(e.target.value)} 
@@ -75,9 +76,19 @@ function CreateNewCombo({onComboCreated, user_id}){
                     value={imageURL}
                     onChange={(e) => setImageURL(e.target.value)} 
                     width="500px" 
-                    placeholder="Add an image url:" 
-                    mb={4} backgroundColor="white" 
+                    placeholder="Give your combination an image to remember it by" 
+                    mb={4} 
+                    backgroundColor="white" 
                 />
+                {/* <Input
+                    id="move1"
+                    value={move1}
+                    onChange={(e) => setMove1(e.target.value)}
+                    width="500px"
+                    placeholder="Add the first move"
+                    mb={4}
+                    backgroundColor="white"
+                /> */}
                 <Button 
                     width="200px" 
                     type="submit" 

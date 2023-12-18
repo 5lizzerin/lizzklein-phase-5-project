@@ -1,10 +1,12 @@
 import React, {useState, useEffect} from "react";
-import { Box, Heading, Image, SimpleGrid, useTheme } from '@chakra-ui/react';
+import { Box, Heading, Image, SimpleGrid, Text, useTheme, useDisclosure } from '@chakra-ui/react';
 import { DeleteIcon, EditIcon } from '@chakra-ui/icons'
 import CreateNewCombo from "./CreateNewCombo";
+import EditMyComboModul from "./EditMyComboModal";
 
 function MyCombos({user_id}){
   const [myCombos, setMyCombos] = useState([]);
+  const { isOpen, onOpen, onClose } = useDisclosure()
   const theme = useTheme();
 
     useEffect(() => {
@@ -13,7 +15,7 @@ function MyCombos({user_id}){
           if (resp.ok) {
             resp.json().then((myCombos) => setMyCombos(myCombos));
           } else {
-            console.log('error getting all combos');
+            // console.log('error getting all combos');
           }
         });
     }, []);
@@ -33,14 +35,36 @@ function MyCombos({user_id}){
       })
     }
 
+    function handleEditCombo(){
+      onOpen();
+    }
+
+    function onCombinationNamePatch(updatedCombo){
+      setMyCombos((myCombos) => {
+        return myCombos.map((combo) => {
+          if(combo.id === updatedCombo.id) {
+            return updatedCombo
+          } else {
+            return combo
+          }
+        })
+      })
+    }
+
     return (
         <>
         <div>
           <Heading
             textAlign="center" 
             color={theme.colors.honeysuckle}
-            >My Combos
+            >My Combinations
           </Heading>
+          <Text
+            textAlign="center" 
+            color={theme.colors.honeysuckle} 
+            mb={8}
+            >Add, edit, or archive your own combinations. These will also appear in All Combinations once they're created.
+        </Text>
         </div>
           <CreateNewCombo 
             onComboCreated={handleComboCreated} 
@@ -66,13 +90,22 @@ function MyCombos({user_id}){
                   {myCombo.name}
                 </Heading>
 
-                <DeleteIcon 
+                <DeleteIcon
+                  margin="10px" 
                   onClick={() => handleComboDeleted(myCombo.id)}>
                 </DeleteIcon>
 
-                {/* <EditIcon
-                  onClick={() => handleEditCombo(combo.Combination.id)}>
-                </EditIcon> */}
+                <EditIcon
+                  onClick={() => handleEditCombo(myCombo.id)}
+                  id={myCombo.id}
+                >
+                </EditIcon>
+                <EditMyComboModul 
+                  isOpen={isOpen} 
+                  onClose={onClose}
+                  id={myCombo.id}
+                  onCombinationNamePatch={onCombinationNamePatch} 
+                />
 
                 <Box 
                   mt="2" 

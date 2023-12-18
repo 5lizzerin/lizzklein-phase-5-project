@@ -45,6 +45,7 @@ class Move(db.Model, SerializerMixin):
 
 class Combination(db.Model, SerializerMixin):
     __tablename__ = "combinations"
+    serialize_rules = ("-combination_moves",)
 
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String)
