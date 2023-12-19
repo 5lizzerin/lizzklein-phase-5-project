@@ -29,6 +29,8 @@ function EditMyComboModul({isOpen, onClose, id, onCombinationNamePatch}){
         onClose();
     }
 
+    
+
     return (
         <div>
             <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose} colorScheme="whiteAlpha">
