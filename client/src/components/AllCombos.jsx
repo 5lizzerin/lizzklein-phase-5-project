@@ -13,7 +13,9 @@ function AllCombos({ combo, searchTerm }) {
   );
 
   const handleShowComboMoves = (event) => {
-    fetch(`/allcombinationmoves/${event.target.id}`)
+    const id = event.target.id
+    console.log(id)
+    fetch(`/allcombinationmoves/${id}`)
                 .then((resp) => {
                     if (resp.ok) {
                         resp.json().then(setShowCombo)
