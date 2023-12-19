@@ -8,8 +8,8 @@ function AllMoves({ move, searchTerm }) {
   const [showMove, setShowMoves] = useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure()
 
-  const filteredMoves = (move || []).filter((move) =>
-    move.name.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredMoves = (move || []).filter((move) => 
+    move.name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const handleShowMoveDescription = (event) => {
@@ -59,7 +59,11 @@ function AllMoves({ move, searchTerm }) {
             onClick={handleShowMoveDescription}
             onClose={onClose} 
           />
-          <MovesDescriptionModal isOpen={isOpen} onClose={onClose} showMove={showMove} ></MovesDescriptionModal>
+          <MovesDescriptionModal 
+            isOpen={isOpen} 
+            onClose={onClose} 
+            showMove={showMove}>
+          </MovesDescriptionModal>
           {/* </Box>
           <FavoriteButton 
             move={move} 

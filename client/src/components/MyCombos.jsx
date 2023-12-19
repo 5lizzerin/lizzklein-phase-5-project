@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { Box, Heading, Image, SimpleGrid, Text, useTheme, useDisclosure } from '@chakra-ui/react';
+import { Box, Heading, Image, SimpleGrid, Text, useTheme } from '@chakra-ui/react';
 import { DeleteIcon, EditIcon } from '@chakra-ui/icons'
 import CreateNewCombo from "./CreateNewCombo";
 import EditMyComboModul from "./EditMyComboModal";
@@ -25,7 +25,7 @@ function MyCombos({user_id}){
             // console.log('error getting all combos');
           }
         });
-    }, []);
+    }, [user_id]);
 
 
     const handleComboCreated = (newComboData) => {

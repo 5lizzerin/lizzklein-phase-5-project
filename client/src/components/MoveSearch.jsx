@@ -9,7 +9,7 @@ function MoveSearch({ setSearchTerm }) {
       variant='flushed'
       width="500px"
       padding="20px"
-      onChange={(e) => setSearchTerm(e.target.value)}
+      onChange={(e) => (setSearchTerm(e.target.value.normalize("NFD").replace(/[\u0300-\u036f]/g, "")))}
     />
   );
 }
