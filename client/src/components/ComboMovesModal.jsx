@@ -4,11 +4,12 @@ import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, Mo
 
 
 function ComboMovesModal({isOpen, onClose, showCombo}){
+    console.log(showCombo)
     const theme = useTheme();
 
     if (showCombo == null)
         return 
-    console.log(showCombo) 
+    // console.log(showCombo) 
 
     return (
         <div>
@@ -18,9 +19,12 @@ function ComboMovesModal({isOpen, onClose, showCombo}){
             <ModalHeader>This combination looks like this:</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
+                {/* <Text>Debugging</Text> */}
+                {/* {console.log(showCombo)} */}
             <Text mb='1rem'>{showCombo.combination_moves.map((move, index, array) => (
                 <React.Fragment key={index}>
                     {move.move.name}
+                    {/* {console.log(move.name)} */}
                     {index !== array.length - 1 && <br />}
                 </React.Fragment>
                     ))}
