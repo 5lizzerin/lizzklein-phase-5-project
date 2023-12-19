@@ -10,6 +10,7 @@ function EditMyComboModul({isOpen, onClose, id, onCombinationNamePatch}){
     const [newCombinationName, setNewCombinationName] = useState("");
 
     function handleUpdatedCombo(e) {
+        console.log(e.target.id)
         fetch(`/allcombinations/${id}`, {
             method: 'PATCH',
             headers: {
