@@ -35,11 +35,12 @@ function MyCombos({user_id}){
       })
     }
 
-    function handleEditCombo(){
-      onOpen();
+    function handleEditCombo(id){
+      onOpen(id);
     }
 
     function onCombinationNamePatch(updatedCombo){
+      console.log(updatedCombo)
       setMyCombos((myCombos) => {
         return myCombos.map((combo) => {
           if(combo.id === updatedCombo.id) {
@@ -77,7 +78,6 @@ function MyCombos({user_id}){
           >
             
             {myCombos.map((myCombo) => (
-              
               <Box
                 key={myCombo.id}
                 boxShadow="lg"
@@ -98,13 +98,14 @@ function MyCombos({user_id}){
                 <EditIcon
                   onClick={() => handleEditCombo(myCombo.id)}
                   id={myCombo.id}
-                >
+                >{console.log(myCombo.id)}
                 </EditIcon>
+
                 <EditMyComboModul 
                   isOpen={isOpen} 
                   onClose={onClose}
                   id={myCombo.id}
-                  onCombinationNamePatch={onCombinationNamePatch} 
+                  onCombinationNamePatch={onCombinationNamePatch}
                 />
 
                 <Box 
@@ -123,7 +124,6 @@ function MyCombos({user_id}){
                     width="100%"
                     borderRadius="lg"
                   />
-
                 </Box>
               </Box>
               ))}
