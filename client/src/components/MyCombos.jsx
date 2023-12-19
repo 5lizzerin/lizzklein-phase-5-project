@@ -20,16 +20,21 @@ function MyCombos({user_id}){
       fetch(`/users/${user_id}/allcombinations`)
         .then((resp) => {
           if (resp.ok) {
-            resp.json().then((myCombos) => setMyCombos(myCombos));
+            //console.log(resp)
+            //if (resp.json() === null)
+              
+            //  setMyCombos([]);
+            //else
+              resp.json().then((myCombos) => setMyCombos(myCombos));
           } else {
-            // console.log('error getting all combos');
+            console.log('error getting all combos');
           }
         });
     }, [user_id]);
 
 
     const handleComboCreated = (newComboData) => {
-        setMyCombos((myCombos) => [...myCombos, newComboData.Combination]);
+        setMyCombos((myCombos) => (myCombos === null ? [newComboData.Combination]:[...myCombos, newComboData.Combination]));
     };
 
 
@@ -72,7 +77,7 @@ function MyCombos({user_id}){
     // NEW CODE FOR FIXING IS OPEN ARRAYS
     useEffect(() => {
       // Initialize the isOpenArray based on the number of combos
-      setIsOpenArray(myCombos.map(() => false));
+      setIsOpenArray( myCombos === null ? [] : myCombos.map(() => false));
     }, [myCombos]);
 
     return (
@@ -95,6 +100,13 @@ function MyCombos({user_id}){
             user_id = {user_id}>
           </CreateNewCombo>
 
+      {console.log(myCombos)}
+
+      {myCombos === null ? (
+        <p>Loading...</p>
+      ) : myCombos.length === 0 ? (
+        <p>No combinations found. Create a new combination.</p>
+      ) : (
           <SimpleGrid 
             columns={{ base: 1, md: 2, lg: 3, xl: 5 }} 
             spacing={4}
@@ -161,6 +173,7 @@ function MyCombos({user_id}){
               </Box>
               ))}
           </SimpleGrid>
+          )}
         </>
       );
 }
