@@ -4,9 +4,16 @@ import { DeleteIcon, EditIcon } from '@chakra-ui/icons'
 import CreateNewCombo from "./CreateNewCombo";
 import EditMyComboModul from "./EditMyComboModal";
 
+
 function MyCombos({user_id}){
   const [myCombos, setMyCombos] = useState([]);
-  const { isOpen, onOpen, onClose } = useDisclosure()
+
+  // OLD STATE
+  // const { isOpen, onOpen, onClose } = useDisclosure()
+
+  // NEW STATE
+  const [isOpenArray, setIsOpenArray] = useState([]);
+
   const theme = useTheme();
 
     useEffect(() => {
@@ -35,9 +42,20 @@ function MyCombos({user_id}){
       })
     }
 
-    function handleEditCombo(id){
-      onOpen(id);
-    }
+    // OLD HANDLE EDIT COMBO
+    // function handleEditCombo(id){
+    //   onOpen(id);
+    // }
+
+
+
+    // NEW HANDLE EDIT COMBO
+    const handleEditCombo = (index) => {
+      // Set the specific modal state to true
+      const updatedIsOpenArray = [...isOpenArray];
+      updatedIsOpenArray[index] = true;
+      setIsOpenArray(updatedIsOpenArray);
+    };
 
     function onCombinationNamePatch(updatedCombo){
       console.log(updatedCombo)
@@ -51,6 +69,11 @@ function MyCombos({user_id}){
         })
       })
     }
+    // NEW CODE FOR FIXING IS OPEN ARRAYS
+    useEffect(() => {
+      // Initialize the isOpenArray based on the number of combos
+      setIsOpenArray(myCombos.map(() => false));
+    }, [myCombos]);
 
     return (
         <>
@@ -77,7 +100,7 @@ function MyCombos({user_id}){
             spacing={4}
           >
             
-            {myCombos.map((myCombo) => (
+            {myCombos.map((myCombo, index) => (
               <Box
                 key={myCombo.id}
                 boxShadow="lg"
@@ -96,16 +119,26 @@ function MyCombos({user_id}){
                 </DeleteIcon>
 
                 <EditIcon
-                  onClick={() => handleEditCombo(myCombo.id)}
-                  id={myCombo.id}
-                >{console.log(myCombo.id)}
+
+                  // OLD EDIT ICON STUFF
+                  // onClick={() => handleEditCombo(myCombo.id)}
+                  // id={myCombo.id}
+                  onClick={() => handleEditCombo(index)}
+                >
+                  {/* {console.log(myCombo.id)} */}
                 </EditIcon>
 
                 <EditMyComboModul 
-                  isOpen={isOpen} 
-                  onClose={onClose}
+                  isOpen={isOpenArray[index]} 
+                  // Use the specific modal state
+                  onClose={() => setIsOpenArray((prev) => [...prev.slice(0, index), false, ...prev.slice(index + 1)])}
                   id={myCombo.id}
-                  onCombinationNamePatch={onCombinationNamePatch}
+                  onCombinationNamePatch={onCombinationNamePatch} 
+                  // OLD EDIT MY COMBO STUFF
+                  // isOpen={isOpen} 
+                  // onClose={onClose}
+                  // id={myCombo.id}
+                  // onCombinationNamePatch={onCombinationNamePatch}
                 />
 
                 <Box 
