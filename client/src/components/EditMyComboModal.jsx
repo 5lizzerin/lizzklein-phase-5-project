@@ -4,13 +4,13 @@ import { Button, Input, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFoo
 
 
 function EditMyComboModul({isOpen, onClose, id, onCombinationNamePatch}){
-    // console.log(onCombinationNamePatch)
+    // console.log(id)
 
     const theme = useTheme();
     const [newCombinationName, setNewCombinationName] = useState("");
 
     function handleUpdatedCombo(e) {
-        console.log(e.target.id)
+        // console.log(e.target.id)
         fetch(`/allcombinations/${id}`, {
             method: 'PATCH',
             headers: {
@@ -43,6 +43,7 @@ function EditMyComboModul({isOpen, onClose, id, onCombinationNamePatch}){
                             placeholder="Edit your combination name"
                             value={newCombinationName}
                             onChange={(e) => setNewCombinationName(e.target.value)}
+
                         ></Input>
                     </ModalBody>
                     <ModalFooter>
@@ -52,6 +53,7 @@ function EditMyComboModul({isOpen, onClose, id, onCombinationNamePatch}){
                             margin="10px"
                             id={id}
                             >Save
+
                         </Button>
                         <Button onClick={onClose} color={theme.colors.teal}>Close</Button>
                     </ModalFooter>
