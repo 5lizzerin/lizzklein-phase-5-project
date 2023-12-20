@@ -9,7 +9,6 @@ function ComboMovesModal({isOpen, onClose, showCombo}){
 
     if (showCombo == null)
         return 
-    // console.log(showCombo) 
 
     return (
         <div>
@@ -19,12 +18,9 @@ function ComboMovesModal({isOpen, onClose, showCombo}){
             <ModalHeader>This combination looks like this:</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-                {/* <Text>Debugging</Text> */}
-                {/* {console.log(showCombo)} */}
             <Text mb='1rem'>{showCombo.combination_moves.map((move, index, array) => (
                 <React.Fragment key={index}>
                     {move.move.name}
-                    {/* {console.log(move.name)} */}
                     {index !== array.length - 1 && <br />}
                 </React.Fragment>
                     ))}

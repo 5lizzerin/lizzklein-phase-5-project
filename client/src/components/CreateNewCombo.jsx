@@ -5,7 +5,7 @@ function CreateNewCombo({onComboCreated, user_id}){
     const theme = useTheme();
     const [combinationName, setCombinationName] = useState("")
     const [imageURL, setImageURL] = useState("")
-    const [move1, setMove1] = useState("")
+    // const [move1, setMove1] = useState("")
 
     async function handleNewCombo() {
         const combinationName = document.getElementById("combinationName").value;
