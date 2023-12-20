@@ -4,7 +4,6 @@ import MovesDescriptionModal from "./MoveDescriptionModal";
 
 
 function AllMoves({ move, searchTerm }) {
-
   const [showMove, setShowMoves] = useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure()
 

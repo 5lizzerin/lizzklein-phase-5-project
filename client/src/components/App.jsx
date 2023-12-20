@@ -69,22 +69,5 @@ function App() {
 }
 
 export default App;
-
-
-// APP HIERARCHY
-
-// APP
-  // Signup
-  // Header 
-  // Home --> navigate to All Combos, My Combos, All Moves
-  // CombosContainer
-    // ComboSearch
-    // AllCombos
-      // ComboMovesModal
-  // MovesContainer
-    // MoveSearch
-    // AllMoves
-      // MoveDescriptionModal
-  // MyCombos
     
 

@@ -7,24 +7,13 @@ import EditMyComboModul from "./EditMyComboModal";
 
 function MyCombos({user_id}){
   const [myCombos, setMyCombos] = useState([]);
-
-  // OLD STATE
-  // const { isOpen, onOpen, onClose } = useDisclosure()
-
-  // NEW STATE
   const [isOpenArray, setIsOpenArray] = useState([]);
-
   const theme = useTheme();
 
     useEffect(() => {
       fetch(`/users/${user_id}/allcombinations`)
         .then((resp) => {
           if (resp.ok) {
-            //console.log(resp)
-            //if (resp.json() === null)
-              
-            //  setMyCombos([]);
-            //else
               resp.json().then((myCombos) => setMyCombos(myCombos));
           } else {
             console.log('error getting all combos');
@@ -32,11 +21,9 @@ function MyCombos({user_id}){
         });
     }, [user_id]);
 
-
     const handleComboCreated = (newComboData) => {
         setMyCombos((myCombos) => (myCombos === null ? [newComboData.Combination]:[...myCombos, newComboData.Combination]));
     };
-
 
     function handleComboDeleted(id){
       fetch(`/allcombinations/${id}`, {
@@ -47,16 +34,7 @@ function MyCombos({user_id}){
       })
     }
 
-    // OLD HANDLE EDIT COMBO
-    // function handleEditCombo(id){
-    //   onOpen(id);
-    // }
-
-
-
-    // NEW HANDLE EDIT COMBO
     const handleEditCombo = (index) => {
-      // Set the specific modal state to true
       const updatedIsOpenArray = [...isOpenArray];
       updatedIsOpenArray[index] = true;
       setIsOpenArray(updatedIsOpenArray);
@@ -74,9 +52,7 @@ function MyCombos({user_id}){
         })
       })
     }
-    // NEW CODE FOR FIXING IS OPEN ARRAYS
     useEffect(() => {
-      // Initialize the isOpenArray based on the number of combos
       setIsOpenArray( myCombos === null ? [] : myCombos.map(() => false));
     }, [myCombos]);
 
@@ -100,12 +76,27 @@ function MyCombos({user_id}){
             user_id = {user_id}>
           </CreateNewCombo>
 
-      {console.log(myCombos)}
-
       {myCombos === null ? (
-        <p>Loading...</p>
+        <Text 
+          textAlign="center" 
+          color={theme.colors.honeysuckle}
+          mt={10} 
+          mb={10}
+          fontSize={25}
+          fontStyle="italic"
+          >The stage is empty! Create a new combination above to get started.
+        </Text>
+
       ) : myCombos.length === 0 ? (
-        <p>No combinations found. Create a new combination.</p>
+        <Text
+          textAlign="center" 
+          color={theme.colors.honeysuckle}
+          mt={10} 
+          mb={10}
+          fontSize={25}
+          fontStyle="italic"
+          >The stage is empty! Create a new combination above to get started.
+      </Text>
       ) : (
           <SimpleGrid 
             columns={{ base: 1, md: 2, lg: 3, xl: 5 }} 
@@ -131,26 +122,14 @@ function MyCombos({user_id}){
                 </DeleteIcon>
 
                 <EditIcon
-
-                  // OLD EDIT ICON STUFF
-                  // onClick={() => handleEditCombo(myCombo.id)}
-                  // id={myCombo.id}
-                  onClick={() => handleEditCombo(index)}
-                >
-                  {/* {console.log(myCombo.id)} */}
+                  onClick={() => handleEditCombo(index)}>
                 </EditIcon>
 
                 <EditMyComboModul 
                   isOpen={isOpenArray[index]} 
-                  // Use the specific modal state
                   onClose={() => setIsOpenArray((prev) => [...prev.slice(0, index), false, ...prev.slice(index + 1)])}
                   id={myCombo.id}
                   onCombinationNamePatch={onCombinationNamePatch} 
-                  // OLD EDIT MY COMBO STUFF
-                  // isOpen={isOpen} 
-                  // onClose={onClose}
-                  // id={myCombo.id}
-                  // onCombinationNamePatch={onCombinationNamePatch}
                 />
 
                 <Box 

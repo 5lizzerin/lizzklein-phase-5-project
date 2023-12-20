@@ -7,8 +7,6 @@ function MovesDescriptionModal({isOpen, onClose, showMove}){
     if (showMove == null)
         return 
     
-    // const showMoveArray = Object.values(showMove);
-
     return (
         <div>
         <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose} colorScheme="whiteAlpha">
